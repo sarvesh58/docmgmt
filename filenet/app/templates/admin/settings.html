@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}FileNet - Admin Settings{% endblock %}
+
+{% block styles %}
+<style id="theme-preview">
+/* Theme preview styles will be injected here */
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Admin Panel</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{{ url_for('admin.index') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+                <a href="{{ url_for('admin.settings') }}" class="list-group-item list-group-item-action active">
+                    <i class="fas fa-cogs me-2"></i> Settings
+                </a>
+                <a href="{{ url_for('admin.users') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-users me-2"></i> Users
+                </a>
+                <a href="{{ url_for('main.dashboard') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-arrow-left me-2"></i> Back to FileNet
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <form method="post" enctype="multipart/form-data">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Application Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>User Session</h5>
+                        <div class="mb-3">
+                            <label for="session_timeout" class="form-label">Session Timeout (minutes)</label>
+                            <input type="number" class="form-control" id="session_timeout" name="session_timeout" 
+                                value="{{ settings.session_timeout }}" min="1" max="1440" required>
+                            <div class="form-text">How long until an inactive user is logged out automatically.</div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="mb-4" id="logo-section">
+                        <h5>Logo Settings</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Current Logo</label>
+                            <div class="p-3 border rounded text-center bg-light">
+                                <img src="{{ url_for('static', filename=settings.logo_path) }}" alt="Current Logo" 
+                                    height="{{ settings.logo_height }}" id="logo-preview">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="logo_file" class="form-label">Upload New Logo</label>
+                            <input type="file" class="form-control" id="logo_file" name="logo_file" accept=".svg,.png,.jpg,.jpeg">
+                            <div class="form-text">Recommended format: SVG or PNG with transparent background.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="logo_height" class="form-label">Logo Height (pixels)</label>
+                            <input type="number" class="form-control" id="logo_height" name="logo_height" 
+                                value="{{ settings.logo_height }}" min="20" max="200" required>
+                            <div class="form-text">Control how large the logo appears in the navigation bar.</div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="mb-4" id="theme-section">
+                        <h5>Theme Colors</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="primary_color" class="form-label">Primary Color</label>
+                                <div class="input-group">
+                                    <input type="color" class="form-control form-control-color" id="primary_color" name="primary_color" 
+                                        value="{{ settings.primary_color }}" title="Choose primary color" required>
+                                    <input type="text" class="form-control" id="primary_color_text" 
+                                        value="{{ settings.primary_color }}" aria-label="Color hex value">
+                                </div>
+                                <div class="form-text">Main color for navigation, buttons, and headings.</div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                <label for="secondary_color" class="form-label">Secondary Color</label>
+                                <div class="input-group">
+                                    <input type="color" class="form-control form-control-color" id="secondary_color" name="secondary_color" 
+                                        value="{{ settings.secondary_color }}" title="Choose secondary color" required>
+                                    <input type="text" class="form-control" id="secondary_color_text" 
+                                        value="{{ settings.secondary_color }}" aria-label="Color hex value">
+                                </div>
+                                <div class="form-text">Used for secondary elements and highlights.</div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                <label for="accent_color" class="form-label">Accent Color</label>
+                                <div class="input-group">
+                                    <input type="color" class="form-control form-control-color" id="accent_color" name="accent_color" 
+                                        value="{{ settings.accent_color }}" title="Choose accent color" required>
+                                    <input type="text" class="form-control" id="accent_color_text" 
+                                        value="{{ settings.accent_color }}" aria-label="Color hex value">
+                                </div>
+                                <div class="form-text">Used for calls to action and important highlights.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="preview_theme" checked>
+                                <label class="form-check-label" for="preview_theme">Preview theme changes in real-time</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 p-3 border rounded">
+                            <h6>Theme Preview</h6>
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <button type="button" class="btn btn-primary w-100">Primary Button</button>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <button type="button" class="btn btn-outline-primary w-100">Outline Button</button>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <button type="button" class="btn btn-success w-100">Success Button</button>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Card Header</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">This is how cards will appear with the selected theme.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i> Save Settings
+                    </button>
+                    <a href="{{ url_for('admin.index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i> Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Color picker synchronization
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sync color inputs with text inputs
+        function syncColorInput(colorId, textId) {
+            const colorInput = document.getElementById(colorId);
+            const textInput = document.getElementById(textId);
+            
+            colorInput.addEventListener('input', function() {
+                textInput.value = this.value;
+                if (document.getElementById('preview_theme').checked) {
+                    updateThemePreview();
+                }
+            });
+            
+            textInput.addEventListener('input', function() {
+                if (/^#[0-9A-F]{6}$/i.test(this.value)) {
+                    colorInput.value = this.value;
+                    if (document.getElementById('preview_theme').checked) {
+                        updateThemePreview();
+                    }
+                }
+            });
+        }
+        
+        // Set up color synchronization
+        syncColorInput('primary_color', 'primary_color_text');
+        syncColorInput('secondary_color', 'secondary_color_text');
+        syncColorInput('accent_color', 'accent_color_text');
+        
+        // Preview toggle
+        document.getElementById('preview_theme').addEventListener('change', function() {
+            if (this.checked) {
+                updateThemePreview();
+            } else {
+                document.getElementById('theme-preview').textContent = '';
+            }
+        });
+        
+        // Logo preview
+        document.getElementById('logo_file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('logo-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        document.getElementById('logo_height').addEventListener('input', function() {
+            document.getElementById('logo-preview').height = this.value;
+        });
+        
+        // Live theme preview function
+        function updateThemePreview() {
+            const primaryColor = document.getElementById('primary_color').value;
+            const secondaryColor = document.getElementById('secondary_color').value;
+            const accentColor = document.getElementById('accent_color').value;
+            
+            // Make AJAX request to get preview CSS
+            const formData = new FormData();
+            formData.append('primary_color', primaryColor);
+            formData.append('secondary_color', secondaryColor);
+            formData.append('accent_color', accentColor);
+            
+            fetch('{{ url_for("admin.preview_theme") }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('theme-preview').textContent = data.css;
+            })
+            .catch(error => console.error('Error fetching theme preview:', error));
+        }
+        
+        // Initial theme preview if enabled
+        if (document.getElementById('preview_theme').checked) {
+            updateThemePreview();
+        }
+    });
+</script>
+{% endblock %}

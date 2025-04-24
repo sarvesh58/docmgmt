@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}FileNet - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Admin Panel</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{{ url_for('admin.index') }}" class="list-group-item list-group-item-action active">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+                <a href="{{ url_for('admin.settings') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-cogs me-2"></i> Settings
+                </a>
+                <a href="{{ url_for('admin.users') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-users me-2"></i> Users
+                </a>
+                <a href="{{ url_for('main.dashboard') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-arrow-left me-2"></i> Back to FileNet
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Admin Dashboard</h5>
+            </div>
+            <div class="card-body">
+                <h2>Welcome to the FileNet Admin Panel</h2>
+                <p class="lead">Manage your FileNet application settings and users from here.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Site Settings</h5>
+                                <p class="card-text">Customize the appearance and behavior of your FileNet application.</p>
+                                <a href="{{ url_for('admin.settings') }}" class="btn btn-light btn-sm">Manage Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card text-white bg-secondary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">User Management</h5>
+                                <p class="card-text">Manage users and their access levels in the system.</p>
+                                <a href="{{ url_for('admin.users') }}" class="btn btn-light btn-sm">Manage Users</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card text-white bg-success mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Current Theme</h5>
+                                <p class="card-text">Your website is using the BMO-inspired theme.</p>
+                                <a href="{{ url_for('admin.settings') }}#theme-section" class="btn btn-light btn-sm">Change Theme</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Current Settings</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Session Timeout
+                                        <span class="badge bg-primary rounded-pill">{{ settings.session_timeout }} minutes</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Logo Size
+                                        <span class="badge bg-primary rounded-pill">{{ settings.logo_height }}px</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Primary Color
+                                        <span class="badge rounded-pill" style="background-color: {{ settings.primary_color }};">{{ settings.primary_color }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Quick Actions</h5>
+                                <div class="d-grid gap-2">
+                                    <a href="{{ url_for('admin.settings') }}" class="btn btn-primary">
+                                        <i class="fas fa-cogs me-2"></i> Change Settings
+                                    </a>
+                                    <a href="{{ url_for('admin.users') }}" class="btn btn-secondary">
+                                        <i class="fas fa-users me-2"></i> Manage Users
+                                    </a>
+                                    <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-primary">
+                                        <i class="fas fa-arrow-left me-2"></i> Back to FileNet
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

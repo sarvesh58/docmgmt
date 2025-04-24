@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}FileNet - Edit File{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Edit File</h4>
+                    <a href="{{ url_for('main.view_file', file_id=file._id) }}" class="btn btn-sm btn-outline-light">
+                        <i class="fas fa-arrow-left me-1"></i> Back to File
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="filename" class="form-label">Current Filename</label>
+                            <input type="text" class="form-control-plaintext" id="filename" value="{{ file.filename }}" readonly>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ file.metadata.title if file.metadata.title else '' }}">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3">{{ file.metadata.description if file.metadata.description else '' }}</textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="keywords" class="form-label">Keywords (comma separated)</label>
+                            <input type="text" class="form-control" id="keywords" name="keywords" 
+                                value="{% if file.metadata.keywords %}{{ file.metadata.keywords|join(', ') }}{% endif %}">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Current File</label>
+                            <div class="d-flex align-items-center">
+                                {% if file.file_type in ['pdf', 'doc', 'docx'] %}
+                                    <i class="fas fa-file-pdf text-danger fa-2x me-2"></i>
+                                {% elif file.file_type in ['xls', 'xlsx'] %}
+                                    <i class="fas fa-file-excel text-success fa-2x me-2"></i>
+                                {% elif file.file_type in ['ppt', 'pptx'] %}
+                                    <i class="fas fa-file-powerpoint text-warning fa-2x me-2"></i>
+                                {% elif file.file_type in ['jpg', 'jpeg', 'png', 'gif'] %}
+                                    <i class="fas fa-file-image text-primary fa-2x me-2"></i>
+                                {% else %}
+                                    <i class="fas fa-file text-secondary fa-2x me-2"></i>
+                                {% endif %}
+                                <div>
+                                    <div>{{ file.filename }}</div>
+                                    <small class="text-muted">{{ (file.file_size / 1024)|round(1) }} KB • Last modified: {{ format_datetime(file.modified_at) }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Upload New Version (optional)</label>
+                            <input type="file" class="form-control" id="file" name="file">
+                            <div class="form-text">Leave empty if you only want to update the metadata.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Version Comment</label>
+                            <input type="text" class="form-control" id="comment" name="comment" placeholder="Describe what changed in this version">
+                            <div class="form-text">Only required when uploading a new version.</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('main.view_file', file_id=file._id) }}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Enable or disable comment field based on file selection
+        const fileInput = document.getElementById('file');
+        const commentInput = document.getElementById('comment');
+        
+        if (fileInput && commentInput) {
+            const updateCommentField = function() {
+                if (fileInput.files.length > 0) {
+                    commentInput.setAttribute('required', 'required');
+                    commentInput.parentElement.classList.add('required');
+                } else {
+                    commentInput.removeAttribute('required');
+                    commentInput.parentElement.classList.remove('required');
+                }
+            };
+            
+            fileInput.addEventListener('change', updateCommentField);
+            updateCommentField();
+        }
+    });
+</script>
+{% endblock %}

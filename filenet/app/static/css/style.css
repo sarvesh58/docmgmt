@@ -1,0 +1,129 @@
+/* Custom styles for FileNet application */
+
+/* Global styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+/* File type icons */
+.file-icon {
+    font-size: 2rem;
+    margin-right: 0.5rem;
+}
+
+/* Card hover effects */
+.card-hover:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Dashboard specific styles */
+.dashboard-stats {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.dashboard-stats .number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.dashboard-stats .text {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* File preview container */
+.file-preview {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+/* Version history timeline */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.timeline-item:before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #007bff;
+    border: 2px solid #fff;
+}
+
+/* Search results highlighting */
+.search-highlight {
+    background-color: #fff3cd;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+/* File type badges */
+.file-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+.file-badge.document {
+    background-color: #d1e7ff;
+    color: #0056b3;
+}
+
+.file-badge.spreadsheet {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.file-badge.presentation {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.file-badge.image {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.file-badge.other {
+    background-color: #e2e3e5;
+    color: #383d41;
+}

@@ -1,0 +1,159 @@
+/* BMO-inspired theme for FileNet */
+:root {
+    --bmo-blue: #0075BE;
+    --bmo-light-blue: #8CC6FF;
+    --bmo-green: #0A8F1A;
+    --bmo-gray: #F5F5F5;
+    --bmo-dark-gray: #333333;
+}
+
+/* Global styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bmo-gray);
+}
+
+.footer {
+    background-color: var(--bmo-dark-gray);
+    color: white;
+}
+
+/* Override Bootstrap colors */
+.bg-primary {
+    background-color: var(--bmo-blue) !important;
+}
+
+.btn-primary {
+    background-color: var(--bmo-blue) !important;
+    border-color: var(--bmo-blue) !important;
+}
+
+.btn-primary:hover {
+    background-color: #005d99 !important;
+    border-color: #005d99 !important;
+}
+
+.btn-success {
+    background-color: var(--bmo-green) !important;
+    border-color: var(--bmo-green) !important;
+}
+
+.btn-success:hover {
+    background-color: #077013 !important;
+    border-color: #077013 !important;
+}
+
+.btn-outline-primary {
+    color: var(--bmo-blue) !important;
+    border-color: var(--bmo-blue) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--bmo-blue) !important;
+    color: white !important;
+}
+
+/* Card styles */
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.card-header {
+    background-color: var(--bmo-blue);
+    color: white;
+    font-weight: 500;
+}
+
+/* Table styling */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(140, 198, 255, 0.1);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(140, 198, 255, 0.2);
+}
+
+/* Navigation styling */
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Alert styling */
+.alert-success {
+    background-color: rgba(10, 143, 26, 0.1);
+    border-color: var(--bmo-green);
+    color: var(--bmo-green);
+}
+
+.alert-info {
+    background-color: rgba(0, 117, 190, 0.1);
+    border-color: var(--bmo-blue);
+    color: var(--bmo-blue);
+}
+
+/* Custom Dashboard Components */
+.dashboard-card {
+    transition: transform 0.2s;
+    margin-bottom: 20px;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card .card-header {
+    font-weight: 600;
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* Form Styling */
+.form-control:focus {
+    border-color: var(--bmo-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 117, 190, 0.25);
+}
+
+/* Badge Styling */
+.badge-primary {
+    background-color: var(--bmo-blue);
+}
+
+.badge-success {
+    background-color: var(--bmo-green);
+}
+
+/* Dropdown Menu */
+.dropdown-item:active {
+    background-color: var(--bmo-blue);
+}
+
+/* Custom file status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-active {
+    background-color: var(--bmo-green);
+}
+
+.status-archived {
+    background-color: var(--bmo-light-blue);
+}
+
+.status-deleted {
+    background-color: #dc3545;
+}

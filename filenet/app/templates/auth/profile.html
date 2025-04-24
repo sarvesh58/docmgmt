@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}FileNet - Your Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">User Profile</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            <i class="fas fa-user-circle fa-5x text-primary mb-3"></i>
+                            <h5>{{ user.username }}</h5>
+                            {% if user.is_admin %}
+                            <span class="badge bg-warning text-dark">Administrator</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <dl class="row">
+                                <dt class="col-sm-3">Username:</dt>
+                                <dd class="col-sm-9">{{ user.username }}</dd>
+                                
+                                <dt class="col-sm-3">Email:</dt>
+                                <dd class="col-sm-9">{{ user.email }}</dd>
+                                
+                                <dt class="col-sm-3">Member Since:</dt>
+                                <dd class="col-sm-9">{{ format_datetime(user.created_at) }}</dd>
+                                
+                                <dt class="col-sm-3">Last Login:</dt>
+                                <dd class="col-sm-9">
+                                    {% if user.last_login %}
+                                    {{ format_datetime(user.last_login) }}
+                                    {% else %}
+                                    Never
+                                    {% endif %}
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('auth.edit_profile') }}" class="btn btn-primary">
+                            <i class="fas fa-edit me-2"></i> Edit Profile
+                        </a>
+                        <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Dashboard
+                        </a>
+                        {% if user.is_admin %}
+                        <a href="{{ url_for('admin.index') }}" class="btn btn-warning">
+                            <i class="fas fa-cogs me-2"></i> Admin Panel
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
